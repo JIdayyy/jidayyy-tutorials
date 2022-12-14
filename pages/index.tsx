@@ -9,7 +9,6 @@ import Layout from "../src/components/Layout/Layout";
 import { trpc } from "../src/utils/trpc";
 import { NextPageWithLayout } from "./_app";
 import { appRouter } from "../src/server/trpc/router/_app";
-import WaveSmall from "../src/components/svgs/wavesmall";
 
 const Home: NextPageWithLayout = () => {
   const { data, isLoading } = trpc.post.getAllPosts.useQuery(undefined, {

@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import axios from "axios";
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
@@ -45,6 +46,11 @@ export const postRouter = router({
             },
           },
         },
+      });
+
+      axios.post("/api/revalidate", {
+        secret: process.env.MY_SECRET_TOKEN,
+        path: `/${newPost.id}`,
       });
 
       return newPost;

@@ -3,7 +3,7 @@
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { useRouter } from "next/router";
 import SuperJSON from "superjson";
-import { GetServerSideProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 import Layout from "../../src/components/Layout/Layout";
 import { createContext } from "../../src/server/trpc/context";
@@ -13,7 +13,6 @@ import { NextPageWithLayout } from "../_app";
 
 import "@uiw/react-markdown-preview/markdown.css";
 import WaveSvg from "../../src/components/svgs/wave";
-import WaveSmall from "../../src/components/svgs/wavesmall";
 
 const MarkdownEditorPreview = dynamic(
   () => import("@uiw/react-markdown-preview"),
@@ -45,8 +44,30 @@ const PostDetails: NextPageWithLayout = () => {
 
 PostDetails.getLayout = (page) => <Layout>{page}</Layout>;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { slug } = ctx.query;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const ssg = createProxySSGHelpers({
+    ctx: await createContext(),
+    router: appRouter,
+    transformer: SuperJSON,
+  });
+
+  const posts = await ssg.post.getAllPosts.fetch();
+
+  const paths = posts.map((post) => ({
+    params: { slug: post.id },
+  }));
+
+  return {
+    paths,
+    fallback: "blocking", // false or 'blocking'
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  if (!ctx.params) return Promise.reject(new Error("No params found"));
+
+  const { slug } = ctx.params;
+
   const ssg = createProxySSGHelpers({
     ctx: await createContext(),
     router: appRouter,
@@ -58,6 +79,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       trpcState: ssg.dehydrate(),
+      revalidate: 10,
     },
   };
 };
