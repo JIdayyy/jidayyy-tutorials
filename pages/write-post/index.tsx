@@ -45,8 +45,17 @@ const getElementScrollPositionPercentage = (
   }
 };
 
+const getInitialValue = () => {
+  const initialValue =
+    typeof window !== "undefined" ? localStorage.getItem("draft") : "";
+  if (initialValue) {
+    return initialValue;
+  }
+  return DEFAULT_VALUE;
+};
+
 const WritePost: NextPageWithLayout = () => {
-  const [value, setValue] = useState(DEFAULT_VALUE);
+  const [value, setValue] = useState(() => getInitialValue());
   const { mutate, isLoading } = trpc.post.createPost.useMutation({
     onSuccess: () => {
       trpc.useContext().post.getAllPosts.invalidate();
@@ -66,6 +75,13 @@ const WritePost: NextPageWithLayout = () => {
     });
   };
 
+  const handleChange = (text: string) => {
+    setValue(text);
+    setTimeout(() => {
+      localStorage.setItem("draft", text);
+    }, 3000);
+  };
+
   return (
     <div className="w-full h-[80vh] max-w-7xl">
       <h1>Write a new post here</h1>
@@ -76,7 +92,7 @@ const WritePost: NextPageWithLayout = () => {
           className="w-1/2 h-full scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-700 scrollbar-thumb-rounded  overflow-y-scroll min-h-[800px]"
         >
           <MarkdownEditor
-            onChange={(text) => setValue(text)}
+            onChange={handleChange}
             style={{
               minHeight: "800px",
               whiteSpace: "pre-wrap",
