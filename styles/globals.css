@@ -13,3 +13,7 @@ p {
 body {
   background-color: #0e1117;
 }
+
+hr {
+  @apply opacity-0;
+}

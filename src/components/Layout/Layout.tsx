@@ -6,7 +6,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="w-screen  min-h-screen flex flex-col justify-start items-center">
+    <div className="w-screen relative min-h-screen flex flex-col justify-start items-center">
       <Navbar />
       {children}
     </div>

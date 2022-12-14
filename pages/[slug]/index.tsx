@@ -12,6 +12,8 @@ import { trpc } from "../../src/utils/trpc";
 import { NextPageWithLayout } from "../_app";
 
 import "@uiw/react-markdown-preview/markdown.css";
+import WaveSvg from "../../src/components/svgs/wave";
+import WaveSmall from "../../src/components/svgs/wavesmall";
 
 const MarkdownEditorPreview = dynamic(
   () => import("@uiw/react-markdown-preview"),
@@ -32,7 +34,18 @@ const PostDetails: NextPageWithLayout = () => {
 
   return (
     <div className="max-w-7xl my-20">
-      <MarkdownEditorPreview source={data.content} />
+      <WaveSvg className="absolute top-0  left-0 z-0 opacity-25 w-screen" />
+      <MarkdownEditorPreview
+        style={{
+          position: "relative",
+          zIndex: 10,
+          backgroundColor: "transparent",
+          border: 0,
+        }}
+        className=""
+        source={data.content}
+      />
+      <WaveSmall className="rotate-180 absolute bottom-0   left-0  opacity-25 w-screen" />
     </div>
   );
 };

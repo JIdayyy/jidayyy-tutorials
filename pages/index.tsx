@@ -9,6 +9,7 @@ import Layout from "../src/components/Layout/Layout";
 import { trpc } from "../src/utils/trpc";
 import { NextPageWithLayout } from "./_app";
 import { appRouter } from "../src/server/trpc/router/_app";
+import WaveSmall from "../src/components/svgs/wavesmall";
 
 const Home: NextPageWithLayout = () => {
   const { data, isLoading } = trpc.post.getAllPosts.useQuery(undefined, {
@@ -18,23 +19,28 @@ const Home: NextPageWithLayout = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="w-full max-w-7xl">
+    <div className="w-full flex justify-center items-center align-middle flex-col">
       <Header />
-      <div className="w-full mt-10 grid grid-cols-4 gap-4">
-        {data?.map((post) => (
-          <Link href={post.id}>
-            <div className="border-gray-700 flex flex-col justify-between h-44 hover:border-blue-50 group  transition-all  p-5 border-light">
-              <p className="text-white line-clamp-2 transition-all group-hover:text-blue-50 font-bold">
-                {post.title}
-              </p>
-              <p className="line-clamp-3">
-                Dans ce tutoriel je vous propose de découvrir comment construire
-                un serveur http NodeJS avec Express et l&apos;ORM Prisma
-              </p>
-            </div>
-          </Link>
-        ))}
+
+      <div className="max-w-7xl flex flex-col  justify-center">
+        <div className="w-full mt-10 grid grid-cols-4 gap-4">
+          {data?.map((post) => (
+            <Link href={post.id}>
+              <div className="border-gray-700 flex flex-col justify-between h-44 hover:border-blue-50 group  transition-all  p-5 border-light">
+                <p className="text-white line-clamp-2 transition-all group-hover:text-blue-50 font-bold">
+                  {post.title}
+                </p>
+                <p className="line-clamp-3">
+                  Dans ce tutoriel je vous propose de découvrir comment
+                  construire un serveur http NodeJS avec Express et l&apos;ORM
+                  Prisma
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
+      <WaveSmall className="opacity-20 rotate-180" />
     </div>
   );
 };

@@ -16,7 +16,7 @@ const navLinks = [
 
 export default function Navbar() {
   return (
-    <div className="max-w-7xl bg-[#0E1117] sticky top-0 z-10 bg-[] text-white border-b-light border-gray-700 py-5 flex w-full items-center justify-between">
+    <div className="max-w-7xl   z-10 bg-[] text-white border-b-light border-gray-700 py-5 flex w-full items-center justify-between">
       <Link href="/">
         <p>Jidayy tutorials</p>
       </Link>
