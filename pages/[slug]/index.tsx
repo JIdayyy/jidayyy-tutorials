@@ -36,16 +36,9 @@ const PostDetails: NextPageWithLayout = () => {
     <div className="max-w-7xl my-20">
       <WaveSvg className="absolute top-0  left-0 z-0 opacity-25 w-screen" />
       <MarkdownEditorPreview
-        style={{
-          position: "relative",
-          zIndex: 10,
-          backgroundColor: "transparent",
-          border: 0,
-        }}
-        className=""
+        className="w-full px-2 z-10 bg-transparent border-0 "
         source={data.content}
       />
-      <WaveSmall className="rotate-180 absolute bottom-0   left-0  opacity-25 w-screen" />
     </div>
   );
 };

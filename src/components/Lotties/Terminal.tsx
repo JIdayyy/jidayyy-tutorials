@@ -4,7 +4,12 @@ import terminalLottie from "../../Lotties/terminal.json";
 
 const TerminalLottie = () => {
   return (
-    <Lottie style={{ width: "40%" }} animationData={terminalLottie} loop />
+    <Lottie
+      className="invisible md:visible"
+      style={{ width: "40%" }}
+      animationData={terminalLottie}
+      loop
+    />
   );
 };
 

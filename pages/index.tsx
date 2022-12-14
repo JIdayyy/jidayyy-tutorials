@@ -22,8 +22,8 @@ const Home: NextPageWithLayout = () => {
     <div className="w-full flex justify-center items-center align-middle flex-col">
       <Header />
 
-      <div className="max-w-7xl flex flex-col  justify-center">
-        <div className="w-full mt-10 grid grid-cols-4 gap-4">
+      <div className="max-w-7xl  flex flex-col  justify-center">
+        <div className="w-full px-2 mt-10 grid grid-col-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data?.map((post) => (
             <Link href={post.id}>
               <div className="border-gray-700 flex flex-col justify-between h-44 hover:border-blue-50 group  transition-all  p-5 border-light">
@@ -40,7 +40,6 @@ const Home: NextPageWithLayout = () => {
           ))}
         </div>
       </div>
-      <WaveSmall className="opacity-20 rotate-180" />
     </div>
   );
 };
