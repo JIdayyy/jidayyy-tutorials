@@ -1,6 +1,7 @@
 /* eslint-disable react/function-component-definition */
 import superjson from "superjson";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { GetStaticProps } from "next";
 import Link from "next/link";
 import { createContext } from "../src/server/trpc/context";
 import Header from "../src/components/Header";
@@ -42,7 +43,7 @@ Home.getLayout = (page) => <Layout>{page}</Layout>;
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const ssg = createProxySSGHelpers({
     ctx: await createContext(),
     router: appRouter,
