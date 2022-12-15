@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npx prisma generate && next start",
     "prepare": "husky install",
     "lint": "echo '----- Checking Frontend...' && prettier --debug-check . && eslint --ext .tsx . && echo '----- Done!'",
     "setup": "npm i && husky install"
