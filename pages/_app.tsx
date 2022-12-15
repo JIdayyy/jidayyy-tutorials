@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import type { AppProps, AppType } from "next/app";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ReactElement, ReactNode } from "react";
+import { SessionProvider } from "next-auth/react";
 import { trpc } from "../src/utils/trpc";
 
 import "../styles/globals.css";
@@ -18,12 +19,17 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const App = (({ Component, pageProps }: AppPropsWithLayout) => {
+const App = (({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(
+  return (
     <>
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        {getLayout(<Component {...pageProps} />)}
+      </SessionProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </>
   );

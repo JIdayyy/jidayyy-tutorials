@@ -4,10 +4,22 @@ import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
 export const postRouter = router({
-  getAllPosts: publicProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.prisma.post.findMany();
-    return posts;
-  }),
+  getAllPosts: publicProcedure
+    .input(
+      z
+        .object({
+          technologies: z.boolean(),
+        })
+        .optional()
+    )
+    .query(async ({ ctx, input }) => {
+      const posts = await ctx.prisma.post.findMany({
+        include: {
+          technologies: !!input?.technologies,
+        },
+      });
+      return posts;
+    }),
   getPost: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -27,6 +39,7 @@ export const postRouter = router({
         published: z.boolean(),
         authorId: z.string(),
         categoryId: z.string(),
+        description: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -35,6 +48,7 @@ export const postRouter = router({
           content: input.content,
           title: input.title,
           published: input.published,
+          description: input.description,
           author: {
             connect: {
               id: input.authorId,

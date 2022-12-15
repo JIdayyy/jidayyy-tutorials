@@ -1,13 +1,15 @@
 /* eslint-disable react/function-component-definition */
 import dynamic from "next/dynamic";
 import { RefObject, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import rehypeSanitize from "rehype-sanitize";
+import { useSession } from "next-auth/react";
+import { useForm } from "react-hook-form";
 import Layout from "../../src/components/Layout/Layout";
 import { NextPageWithLayout } from "../_app";
 import "@uiw/react-markdown-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import { trpc } from "../../src/utils/trpc";
-
 import DEFAULT_VALUE from "../../src/constants/editor";
 
 const MarkdownEditor = dynamic(
@@ -56,23 +58,43 @@ const getInitialValue = () => {
   return DEFAULT_VALUE;
 };
 
+type FormData = {
+  title: string;
+  description: string;
+  image: string;
+  categoryId: string;
+};
+
 const WritePost: NextPageWithLayout = () => {
   const [value, setValue] = useState(() => getInitialValue());
+  const { handleSubmit, register } = useForm<FormData>();
+  const { data: categories } = trpc.category.getAllCategories.useQuery();
+
+  const router = useRouter();
+  const { data: sessionData } = useSession({
+    onUnauthenticated: () => {
+      router.push("/api/auth/signin");
+    },
+    required: true,
+  });
+
   const { mutate, isLoading } = trpc.post.createPost.useMutation({
     onSuccess: () => {
       trpc.useContext().post.getAllPosts.invalidate();
+      localStorage.setItem("draft", "");
     },
   });
 
   const ref1 = useRef<HTMLDivElement>(null);
   const ref2 = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = () => {
+  const onSubmit = (data: FormData) => {
     mutate({
-      title: "Express Typescript Prisma workshop MVC",
+      title: data.title,
       content: value,
-      authorId: "b4280871-033a-4752-9d48-b4c51c0b8524",
-      categoryId: "098c5fc6-9718-46bc-a560-a8524c1d26e1",
+      authorId: sessionData?.user?.id as string,
+      categoryId: data.categoryId,
+      description: data.description,
       published: true,
     });
   };
@@ -87,6 +109,31 @@ const WritePost: NextPageWithLayout = () => {
   return (
     <div className="w-full h-[80vh] max-w-7xl">
       <h1>Write a new post here</h1>
+
+      <form className="grid my-5 grid-cols-2 grid-rows-2 gap-4 ">
+        <select {...register("categoryId")}>
+          <option>Select a category</option>
+          {categories?.map((category) => (
+            <option value={category.id}>{category.name}</option>
+          ))}
+        </select>
+        <input
+          placeholder="Enter the title of this tutorial"
+          type="text"
+          {...register("title")}
+        />
+        <input
+          placeholder="Enter a rapid description of this tuto"
+          type="text"
+          {...register("description")}
+        />
+        <input
+          placeholder="Please provide an image url"
+          type="text"
+          {...register("image")}
+        />
+      </form>
+
       <div className="w-full h-full justify-between flex">
         <div
           ref={ref1}
@@ -129,7 +176,7 @@ const WritePost: NextPageWithLayout = () => {
         </button>
         <button
           className="bg-blue-50 text-white  px-2 py-1 rounded-sm hover:bg-blue-200"
-          onClick={handleSubmit}
+          onClick={handleSubmit(onSubmit)}
           type="button"
         >
           {isLoading ? "Loading..." : "Submit"}

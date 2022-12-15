@@ -26,7 +26,8 @@ module.exports = {
         light: "0.01em",
       },
       transitionDuration: {
-        normal: "0.1s",
+        normal: "100ms",
+        fast: "0ms",
       },
     },
   },

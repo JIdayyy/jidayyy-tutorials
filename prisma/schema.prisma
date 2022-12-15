@@ -12,8 +12,9 @@ datasource db {
 
 model User {
   id       String    @id @default(uuid())
-  email    String    @unique
-  userName String?
+  emailVerified DateTime? @unique
+  email   String    @unique
+  name String?
   posts    Post[]
   image    String?
   accounts Account[]
@@ -24,12 +25,21 @@ model Post {
   id         String   @id @default(uuid())
   title      String   @unique
   content    String
+  description String
   published  Boolean  @default(false)
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
   author     User     @relation(fields: [authorId], references: [id])
   authorId   String
   tags       Tag[]
+  technologies Technology[]
+}
+
+model Technology {
+  id    String @id @default(uuid())
+  name  String
+  icon String
+  posts Post[]
 }
 
 model Category {

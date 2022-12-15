@@ -1,3 +1,9 @@
+/* eslint-disable import/extensions */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-console */
 // @ts-check
 /**
  * This file is included in `/next.config.mjs` which ensures the app isn't built with invalid env vars.
@@ -11,12 +17,12 @@ const _serverEnv = serverSchema.safeParse(process.env);
 if (!_serverEnv.success) {
   console.error(
     "❌ Invalid environment variables:\n",
-    ...formatErrors(_serverEnv.error.format()),
+    ...formatErrors(_serverEnv.error.format())
   );
   throw new Error("Invalid environment variables");
 }
 
-for (let key of Object.keys(_serverEnv.data)) {
+for (const key of Object.keys(_serverEnv.data)) {
   if (key.startsWith("NEXT_PUBLIC_")) {
     console.warn("❌ You are exposing a server-side env-variable:", key);
 
