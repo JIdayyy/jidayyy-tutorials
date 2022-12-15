@@ -1,11 +1,13 @@
 /* eslint-disable react/function-component-definition */
 import dynamic from "next/dynamic";
 import { RefObject, useRef, useState } from "react";
+import rehypeSanitize from "rehype-sanitize";
 import Layout from "../../src/components/Layout/Layout";
 import { NextPageWithLayout } from "../_app";
 import "@uiw/react-markdown-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import { trpc } from "../../src/utils/trpc";
+
 import DEFAULT_VALUE from "../../src/constants/editor";
 
 const MarkdownEditor = dynamic(
@@ -110,6 +112,7 @@ const WritePost: NextPageWithLayout = () => {
           className="w-1/2  h-full scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-700 scrollbar-thumb-rounded overflow-y-scroll min-h-[800px]"
         >
           <MarkdownEditorPreview
+            rehypePlugins={[rehypeSanitize]}
             linkTarget="_blank"
             source={value}
             style={{ width: "100%", minHeight: "800px", padding: "10px" }}

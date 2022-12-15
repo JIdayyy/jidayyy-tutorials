@@ -4,6 +4,7 @@ import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { useRouter } from "next/router";
 import SuperJSON from "superjson";
 import { GetStaticPaths, GetStaticProps } from "next";
+import rehypeSanitize from "rehype-sanitize";
 import dynamic from "next/dynamic";
 import Layout from "../../src/components/Layout/Layout";
 import { createContext } from "../../src/server/trpc/context";
@@ -37,6 +38,7 @@ const PostDetails: NextPageWithLayout = () => {
       <MarkdownEditorPreview
         className="w-full px-2 z-10 bg-transparent border-0 "
         source={data.content}
+        rehypePlugins={[rehypeSanitize]}
       />
     </div>
   );
