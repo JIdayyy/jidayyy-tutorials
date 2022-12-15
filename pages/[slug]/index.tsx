@@ -33,7 +33,7 @@ const PostDetails: NextPageWithLayout = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-7xl my-20">
+    <div className="max-w-7xl py-20">
       <WaveSvg className="absolute top-0  left-0 z-0 opacity-25 w-screen" />
       <MarkdownEditorPreview
         className="w-full px-2 z-10 bg-transparent border-0 "
