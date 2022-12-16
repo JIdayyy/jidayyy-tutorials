@@ -5,6 +5,7 @@ import { Suspense, useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Technology } from "@prisma/client";
+import { toast } from "react-toastify";
 import { FieldValues, useForm } from "react-hook-form";
 import Input from "../../src/components/Atoms/Input";
 import Layout from "../../src/components/Layout/Layout";
@@ -57,7 +58,7 @@ const WritePost: NextPageWithLayout = () => {
   });
 
   const onSubmit = (data: FieldValues) => {
-    mutate({
+    const newPost = {
       title: data.title,
       content: value,
       authorId: sessionData?.user?.id as string,
@@ -65,7 +66,24 @@ const WritePost: NextPageWithLayout = () => {
       description: data.description,
       published: true,
       technologies: selected.map((tech) => tech.value),
+    };
+
+    const getMissingValues = (post: any) => {
+      const missingValues = Object.keys(post).filter((key) => {
+        return post[key] === undefined;
+      });
+      return missingValues;
+    };
+
+    const missingValues = getMissingValues(newPost);
+
+    missingValues.forEach((v) => {
+      toast(`Missing value for ${v}`);
     });
+
+    if (missingValues.length === 0) {
+      mutate(newPost);
+    }
   };
 
   const handleChange = (text: string | undefined) => {
@@ -108,18 +126,21 @@ const WritePost: NextPageWithLayout = () => {
           type="text"
           register={register}
         />
-
-        <input
+        <Input
+          variant="solid"
           className="solid"
-          placeholder="Enter a rapid description of this tuto"
+          name="description"
+          placeholder="Enter a short description of this tutorial"
           type="text"
-          {...register("description")}
+          register={register}
         />
-        <input
+        <Input
+          variant="solid"
           className="solid"
+          name="image"
           placeholder="Please provide an image url"
           type="text"
-          {...register("image")}
+          register={register}
         />
       </form>
 

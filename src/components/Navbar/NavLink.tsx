@@ -11,8 +11,13 @@ export default function NavLink({ link, name }: IProps) {
   const isActive = router.pathname === link;
 
   return (
-    <Link href={link}>
-      <p style={{ textDecoration: isActive ? "underline" : "none" }}>{name}</p>
+    <Link className="h-10 flex items-center align-middle" href={link}>
+      <p
+        className=""
+        style={{ textDecoration: isActive ? "underline" : "none" }}
+      >
+        {name}
+      </p>
     </Link>
   );
 }

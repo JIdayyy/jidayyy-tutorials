@@ -15,7 +15,7 @@ import Input from "../../src/components/Atoms/Input";
 import Layout from "../../src/components/Layout/Layout";
 import { NextPageWithLayout } from "../_app";
 
-const SignIn: NextPageWithLayout<
+const SignUp: NextPageWithLayout<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ providers }) => {
   const { register } = useForm();
@@ -46,7 +46,7 @@ const SignIn: NextPageWithLayout<
   return (
     <div className="w-screen h-screen flexColContainerCenter">
       <form className="flex flex-col  items-center justify-center border-light min-w-[440px]  border-blue-50 bg-blue-400 p-5 space-y-4">
-        <h1>Sign In</h1>
+        <h1>Sign Un</h1>
         <Input
           variant="solid"
           placeholder="Email"
@@ -87,7 +87,7 @@ const SignIn: NextPageWithLayout<
             </button>
           ))}
         <div className="w-full space-x-1 flex">
-          <p>No account yet ? Sign Up</p>
+          <p>Allready got an account ? Sign Ip</p>
           <p
             onClick={() => router.push("/auth/signup")}
             className="text-blue-50 cursor-pointer underline font-bold"
@@ -108,6 +108,6 @@ export const getServerSideProps = async () => {
   };
 };
 
-SignIn.getLayout = (page) => <Layout>{page}</Layout>;
+SignUp.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default SignIn;
+export default SignUp;

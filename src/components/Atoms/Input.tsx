@@ -15,7 +15,7 @@ export default function Input({
   register,
   variant,
   placeholder,
-  className,
+  className = "",
   icon,
   type,
   name,
@@ -23,7 +23,8 @@ export default function Input({
   const Icon = icon ? () => icon : () => <></>;
 
   return (
-    <label htmlFor={name}>
+    <label className="text-white capitalize w-full" htmlFor={name}>
+      <span className="my-1">{name} :</span>
       <input
         type={type}
         className={`${variant} ${className}`}

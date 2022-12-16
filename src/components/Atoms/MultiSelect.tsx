@@ -46,7 +46,7 @@ export default function MultiSelect({ data, onChange, values }: Props) {
       isClearable
       classNames={{
         list: "bg-blue-800",
-        menu: "bg-blue-800",
+        menu: "bg-blue-800 w-full absolute text-white",
         tagItem: () => "bg-blue-600 text-white px-2 flex",
         searchBox:
           "bg-blue-600 py-2 w-full pl-10 justify-between align-middle items-center flex text-white",

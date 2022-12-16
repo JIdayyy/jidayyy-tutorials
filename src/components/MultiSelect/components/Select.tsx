@@ -200,7 +200,7 @@ const Select: React.FC<SelectProps> = ({
       value={value}
       handleValueChange={handleValueChange}
     >
-      <div className="relative w-full" ref={ref}>
+      <div className="relative w-full " ref={ref}>
         <div
           tabIndex={0}
           aria-expanded={open}
@@ -208,7 +208,7 @@ const Select: React.FC<SelectProps> = ({
           onClick={toggle}
           className={getSelectClass()}
         >
-          <div className="grow pl-2.5 py-2 pr-2 flex flex-wrap gap-1">
+          <div className="grow pl-2.5 py-2 h-10 pr-2 flex flex-wrap gap-1">
             {!isMultiple ? (
               <p className="truncate cursor-default select-none">
                 {value && !Array.isArray(value) ? value.label : placeholder}
@@ -224,7 +224,7 @@ const Select: React.FC<SelectProps> = ({
                         className={
                           classNames && classNames.tagItemText
                             ? classNames.tagItemText
-                            : "text-gray-600 truncate cursor-default select-none"
+                            : "text-white truncate cursor-default select-none"
                         }
                       >
                         {item.label}

@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import NavLink from "./NavLink";
+import Avatar from "../Atoms/Avatar";
 
 const navLinks = [
   {
@@ -10,39 +10,29 @@ const navLinks = [
     path: "/",
     auth: false,
   },
-  {
-    id: 2,
-    name: "Write Post",
-    path: "/write-post",
-    auth: true,
-  },
 ];
 
 export default function Navbar() {
-  const { data, status } = useSession();
+  const { status } = useSession();
 
   return (
-    <div className="max-w-7xl px-2   z-10 bg-[] text-white border-b-light border-gray-700 py-5 flex w-full items-center justify-between">
-      <Link href="/">
-        <p>Jidayy tutorials</p>
+    <div className="max-w-7xl px-2 z-10 text-white border-b-light border-gray-700 py-5 flex w-full items-center align-middle justify-between">
+      <Link href="/" className="flex">
+        <span className="text-4xl mr-2 flex items-center align-middle justify-center flex-col">
+          🚀
+        </span>
+        <p className="font-bold">
+          Jidayy <br /> tutorials
+        </p>
       </Link>
       <div className="space-x-8 items-center justify-center align-middle flex">
         {navLinks.map((link) => (
           <NavLink link={link.path} name={link.name} />
         ))}
-        {status === "authenticated" ? (
-          <Image
-            className="rounded-full w-10 h-10 cursor-pointer  border-blue-200 transition-all hover:border-2  ease-in-out duration-fast"
-            src={data?.user?.image || ""}
-            width={100}
-            height={100}
-            alt="avatar"
-          />
-        ) : (
-          <div className="w-10 h-10">
-            <NavLink link="/api/auth/signin" name="Sign In" />
-          </div>
+        {status === "authenticated" && (
+          <NavLink link="/write-post" name="New Tuto" />
         )}
+        <Avatar />
       </div>
     </div>
   );
