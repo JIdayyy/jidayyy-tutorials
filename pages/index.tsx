@@ -29,7 +29,7 @@ const Home: NextPageWithLayout = () => {
         <div className="w-full px-2 mt-10 grid grid-col-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data?.map((post) => (
             <Link href={post.id}>
-              <div className="border-gray-700 flex flex-col justify-between  min-h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-light">
+              <div className="border-blue-600 bg-blue-400 flex flex-col justify-between  min-h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-2">
                 <div className="w-full flex flex-wrap space-x-2">
                   {post.technologies.map((technology) => (
                     <Image

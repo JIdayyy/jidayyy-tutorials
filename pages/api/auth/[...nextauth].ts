@@ -43,6 +43,9 @@ export const authOptions: NextAuthOptions = {
 
     // ...add more providers here
   ],
+  pages: {
+    signIn: "/auth/signin",
+  },
 
   // secret: process.env.AUTH_SECRET,
   // jwt: {

@@ -40,6 +40,7 @@ export const postRouter = router({
         authorId: z.string(),
         categoryId: z.string(),
         description: z.string(),
+        technologies: z.array(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -58,6 +59,9 @@ export const postRouter = router({
             connect: {
               id: input.categoryId,
             },
+          },
+          technologies: {
+            connect: input.technologies.map((id) => ({ id })),
           },
         },
       });

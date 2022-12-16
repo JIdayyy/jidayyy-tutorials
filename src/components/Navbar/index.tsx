@@ -39,7 +39,9 @@ export default function Navbar() {
             alt="avatar"
           />
         ) : (
-          <NavLink link="/api/auth/signin" name="Sign In" />
+          <div className="w-10 h-10">
+            <NavLink link="/api/auth/signin" name="Sign In" />
+          </div>
         )}
       </div>
     </div>

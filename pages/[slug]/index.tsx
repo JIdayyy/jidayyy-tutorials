@@ -4,7 +4,7 @@ import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { useRouter } from "next/router";
 import SuperJSON from "superjson";
 import { GetStaticPaths, GetStaticProps } from "next";
-import rehypeSanitize from "rehype-sanitize";
+import "@uiw/react-md-editor/markdown-editor.css";
 import dynamic from "next/dynamic";
 import Layout from "../../src/components/Layout/Layout";
 import { createContext } from "../../src/server/trpc/context";
@@ -13,12 +13,14 @@ import { trpc } from "../../src/utils/trpc";
 import { NextPageWithLayout } from "../_app";
 import "@uiw/react-markdown-preview/markdown.css";
 import WaveSvg from "../../src/components/svgs/wave";
+import { Code } from "../../src/components/Editor/utils";
 
 const MarkdownEditorPreview = dynamic(
-  () => import("@uiw/react-markdown-preview"),
-  {
-    ssr: false,
-  }
+  () =>
+    import("@uiw/react-md-editor").then((mod) => {
+      return mod.default.Markdown;
+    }),
+  { ssr: false }
 );
 
 const PostDetails: NextPageWithLayout = () => {
@@ -32,12 +34,14 @@ const PostDetails: NextPageWithLayout = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-7xl py-20">
+    <div className="max-w-7xl w-full py-20">
       <WaveSvg className="absolute top-0  left-0 z-0 opacity-25 w-screen" />
       <MarkdownEditorPreview
-        className="w-full px-2 z-10 bg-transparent border-0 "
+        className="w-full px-2  min-h-[500px] z-10  border-0 "
         source={data.content}
-        rehypePlugins={[rehypeSanitize]}
+        components={{
+          code: Code,
+        }}
       />
     </div>
   );
