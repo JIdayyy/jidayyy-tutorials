@@ -12,12 +12,7 @@ export default function NavLink({ link, name }: IProps) {
 
   return (
     <Link className="h-10 flex items-center align-middle" href={link}>
-      <p
-        className=""
-        style={{ textDecoration: isActive ? "underline" : "none" }}
-      >
-        {name}
-      </p>
+      <p className={`${isActive ? "text-blue-50" : "text-white"}`}>{name}</p>
     </Link>
   );
 }

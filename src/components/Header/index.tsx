@@ -6,11 +6,10 @@ export default function Header() {
       <div className="max-w-7xl py-10 flex justify-center md:justify-between">
         <div className="text-2xl  md:text-6xl  min-w-1/3 text-left w-full md:w-1/2 flex flex-col justify-center items-start">
           <h1 className="text-2xl  md:text-6xl">
-            Les tutos de <span className="text-blue-100">Jidayyy</span> !
+            <span className="text-blue-100">Jidayyy&apos;s</span>
+            <p className="text-2xl  md:text-6xl">Tutorials</p>
           </h1>
-          <p className="text-2xl  md:text-6xl">
-            Sers toi un ☕️ et détends toi !
-          </p>
+          <p className="text-2xl  md:text-6xl">Grab a ☕️ and chill a bit !</p>
         </div>
         <TerminalLottie />
       </div>

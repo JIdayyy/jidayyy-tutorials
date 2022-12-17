@@ -5,7 +5,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { COLORS, DEFAULT_THEME, THEME_DATA } from "../constants";
-import useOnClickOutside from "../hooks/use-onclick-outside";
+import useOnClickOutside from "../../../hooks/use-onclick-outside";
 
 import { ChevronIcon, CloseIcon } from "./Icons";
 import Options from "./Options";
@@ -190,6 +190,8 @@ const Select: React.FC<SelectProps> = ({
       : `${baseClasse} ${disabledClass}`;
   }, [classNames, isDisabled]);
 
+  console.log(value);
+
   return (
     <SelectProvider
       otherData={{
@@ -208,14 +210,14 @@ const Select: React.FC<SelectProps> = ({
           onClick={toggle}
           className={getSelectClass()}
         >
-          <div className="grow pl-2.5 py-2 h-10 pr-2 flex flex-wrap gap-1">
+          <div className="grow pl-2.5 py-2 min-h-10 pr-2 flex flex-wrap gap-1">
             {!isMultiple ? (
               <p className="truncate cursor-default select-none">
                 {value && !Array.isArray(value) ? value.label : placeholder}
               </p>
             ) : (
               <>
-                {value === null && placeholder}
+                {Array.isArray(value) && value.length === 0 && placeholder}
 
                 {Array.isArray(value) &&
                   value.map((item, index) => (

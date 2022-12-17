@@ -10,6 +10,7 @@ export default function AnimationOpacity({ children }: IProps) {
     <motion.div
       animate={{ opacity: 1, y: 0 }}
       initial={{ opacity: 0, y: 100 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
       {children}
