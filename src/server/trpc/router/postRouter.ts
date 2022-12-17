@@ -41,6 +41,7 @@ export const postRouter = router({
         categoryId: z.string(),
         description: z.string(),
         technologies: z.array(z.string()),
+        image: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -50,6 +51,7 @@ export const postRouter = router({
           title: input.title,
           published: input.published,
           description: input.description,
+          image: input.image,
           author: {
             connect: {
               id: input.authorId,
