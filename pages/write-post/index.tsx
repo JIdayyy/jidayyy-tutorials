@@ -51,9 +51,10 @@ const WritePost: NextPageWithLayout = () => {
   });
 
   const { mutate, isLoading } = trpc.post.createPost.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
       trpc.useContext().post.getAllPosts.invalidate();
       localStorage.setItem("draft", "");
+      router.push(`/${data.id}`);
     },
   });
 
