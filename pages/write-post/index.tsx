@@ -37,20 +37,11 @@ const getInitialValue = () => {
 
 const WritePost: NextPageWithLayout = () => {
   const [value, setValue] = useState(() => getInitialValue());
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register } = useForm();
   const [height, setHeight] = useState(500);
   const [selected, setSelected] = useState<Option[]>([]);
   const { data: categories } = trpc.category.getAllCategories.useQuery();
   const { data: technologies } = trpc.technology.getAllTechnologies.useQuery();
-  const notify = (v: string) =>
-    toast(`Missing value for ${v}`, {
-      theme: "dark",
-      position: "top-right",
-    });
 
   const router = useRouter();
   const { data: sessionData } = useSession({

@@ -190,8 +190,6 @@ const Select: React.FC<SelectProps> = ({
       : `${baseClasse} ${disabledClass}`;
   }, [classNames, isDisabled]);
 
-  console.log(value);
-
   return (
     <SelectProvider
       otherData={{
