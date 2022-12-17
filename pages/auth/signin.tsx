@@ -46,7 +46,7 @@ const SignIn: NextPageWithLayout<
   };
 
   return (
-    <div className="w-screen h-full flexColContainerCenter">
+    <div className="w-screen h-[80vh] flexColContainerCenter">
       <motion.h1
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
@@ -55,7 +55,7 @@ const SignIn: NextPageWithLayout<
         Sign In
       </motion.h1>
       <AnimationOpacity>
-        <form className="flex flex-col  items-center justify-center border-light min-w-[440px]  border-blue-50 bg-blue-400 bg-opacity-20 p-5 space-y-4">
+        <form className="flex flex-col  items-center justify-center border-light min-w-[440px]  border-blue-50 bg-blue-400  p-5 space-y-4">
           <Input
             options={{
               required: true,
@@ -101,7 +101,7 @@ const SignIn: NextPageWithLayout<
                 <span />
               </button>
             ))}
-          <div className="w-full space-x-1 flex">
+          <div className="w-full flex justify-center space-x-1 ">
             <p>No account yet ? Sign Up</p>
             <p
               onClick={() => router.push("/auth/signup")}

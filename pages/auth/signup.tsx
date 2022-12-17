@@ -14,6 +14,7 @@ import Button from "../../src/components/Atoms/Button";
 import Input from "../../src/components/Atoms/Input";
 import Layout from "../../src/components/Layout/Layout";
 import { NextPageWithLayout } from "../_app";
+import AnimationOpacity from "../../src/components/Animations/AnimationOpacity";
 
 const SignUp: NextPageWithLayout<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -44,64 +45,66 @@ const SignUp: NextPageWithLayout<
   };
 
   return (
-    <div className="w-screen h-screen flexColContainerCenter">
-      <form className="flex flex-col  items-center justify-center border-light min-w-[440px]  border-blue-50 bg-blue-400 p-5 space-y-4">
-        <h1>Sign Up</h1>
-        <Input
-          options={{
-            required: true,
-          }}
-          variant="solid"
-          placeholder="Email"
-          register={register}
-          type="text"
-          name="email"
-          className="w-full "
-        />
-        <Input
-          options={{
-            required: true,
-          }}
-          variant="solid"
-          placeholder="Password"
-          register={register}
-          type="password"
-          name="password"
-          className="w-full "
-        />
-        <Button text="Sign In" variant="action" className="w-full" />
+    <div className="w-screen h-[80vh] flexColContainerCenter">
+      <AnimationOpacity>
+        <form className="flex flex-col  items-center justify-center border-light min-w-[440px]  border-blue-50 bg-blue-400 p-5 space-y-4">
+          <h1>Sign Up</h1>
+          <Input
+            options={{
+              required: true,
+            }}
+            variant="solid"
+            placeholder="Email"
+            register={register}
+            type="text"
+            name="email"
+            className="w-full "
+          />
+          <Input
+            options={{
+              required: true,
+            }}
+            variant="solid"
+            placeholder="Password"
+            register={register}
+            type="password"
+            name="password"
+            className="w-full "
+          />
+          <Button text="Sign In" variant="action" className="w-full" />
 
-        {providers &&
-          Object.values(providers).map((provider) => (
-            <button
-              type="button"
-              onClick={() => signIn(provider.id)}
-              className={`w-full border-blue-50 border ${
-                ProviderConfig[provider.name as keyof typeof ProviderConfig]
-                  .color
-              } flex items-center align-middle justify-between text-white px-2 py-2`}
-              key={provider.name}
-            >
-              <span>
-                {
+          {providers &&
+            Object.values(providers).map((provider) => (
+              <button
+                type="button"
+                onClick={() => signIn(provider.id)}
+                className={`w-full border-blue-50 border ${
                   ProviderConfig[provider.name as keyof typeof ProviderConfig]
-                    .icon
-                }
-              </span>
-              <p className="font-bold">Sign in with {provider.name}</p>
-              <span />
-            </button>
-          ))}
-        <div className="w-full space-x-1 flex">
-          <p>Allready got an account ? Sign Ip</p>
-          <p
-            onClick={() => router.push("/auth/signup")}
-            className="text-blue-50 cursor-pointer underline font-bold"
-          >
-            here !
-          </p>
-        </div>
-      </form>
+                    .color
+                } flex items-center align-middle justify-between text-white px-2 py-2`}
+                key={provider.name}
+              >
+                <span>
+                  {
+                    ProviderConfig[provider.name as keyof typeof ProviderConfig]
+                      .icon
+                  }
+                </span>
+                <p className="font-bold">Sign in with {provider.name}</p>
+                <span />
+              </button>
+            ))}
+          <div className="w-full flex justify-center space-x-1 ">
+            <p>Allready got an account ? Sign In</p>
+            <p
+              onClick={() => router.push("/auth/signin")}
+              className="text-blue-50 cursor-pointer underline font-bold"
+            >
+              here !
+            </p>
+          </div>
+        </form>
+      </AnimationOpacity>
     </div>
   );
 };

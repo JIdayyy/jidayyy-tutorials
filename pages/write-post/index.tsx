@@ -42,6 +42,7 @@ const WritePost: NextPageWithLayout = () => {
     register,
     formState: { errors },
   } = useForm();
+  const [height, setHeight] = useState(500);
   const [selected, setSelected] = useState<Option[]>([]);
   const { data: categories } = trpc.category.getAllCategories.useQuery();
   const { data: technologies } = trpc.technology.getAllTechnologies.useQuery();
@@ -154,17 +155,18 @@ const WritePost: NextPageWithLayout = () => {
             spellCheck="true"
             autoCorrect="true"
             autoCapitalize="true"
+            height={height}
+            onHeightChange={(number) => setHeight(number as number)}
             previewOptions={{
               components: {
                 code: Code,
               },
             }}
-            className="w-full h-[1000px]"
+            className="w-full"
             style={{
               whiteSpace: "pre-wrap",
               wordBreak: "break-word",
               wordWrap: "break-word",
-              minHeight: "800px",
             }}
             value={value}
             preview="live"
