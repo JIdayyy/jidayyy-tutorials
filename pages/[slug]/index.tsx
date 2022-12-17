@@ -14,6 +14,8 @@ import { NextPageWithLayout } from "../_app";
 import "@uiw/react-markdown-preview/markdown.css";
 import WaveSvg from "../../src/components/svgs/wave";
 import { Code } from "../../src/components/Editor/utils";
+import Image from "next/image";
+import WaveSmall from "../../src/components/svgs/wavesmall";
 
 const MarkdownEditorPreview = dynamic(
   () =>
@@ -35,7 +37,16 @@ const PostDetails: NextPageWithLayout = () => {
 
   return (
     <div className="max-w-7xl w-full py-20">
-      <WaveSvg className="absolute top-0  left-0 z-0 opacity-25 w-screen" />
+      <div className="w-screen pointer-events-none absolute left-0 top-0">
+        <Image
+          src={data.image as string}
+          width={1000}
+          height={200}
+          alt="post cover"
+          className=" object-contain top-0 opacity-5 bg-blend-darken selection:mix-blend-darken w-full z-0"
+        />
+        <WaveSmall className="absolute pointer-events-none h-[1200px] top-0  left-0 z-0 opacity-25 w-screen" />
+      </div>
       <MarkdownEditorPreview
         className="w-full px-2  min-h-[500px] z-10  border-0 "
         source={data.content}

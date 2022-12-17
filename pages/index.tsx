@@ -29,7 +29,7 @@ const Home: NextPageWithLayout = () => {
         <div className="w-full px-2 mt-10 grid grid-col-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data?.map((post) => (
             <Link href={post.id}>
-              <div className="border-blue-600 bg-blue-400 bg-opacity-40 flex flex-col justify-between  min-h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-2">
+              <div className="border-blue-600 bg-blue-400 bg-opacity-40 flex flex-col rounded-sm justify-between  min-h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-2">
                 <div className="w-full flex flex-wrap space-x-2">
                   {post.technologies.map((technology) => (
                     <Image
@@ -37,7 +37,7 @@ const Home: NextPageWithLayout = () => {
                       src={technology.icon}
                       width={50}
                       height={50}
-                      className="w-10 object-contain"
+                      className="w-10 rounded-md object-contain"
                     />
                   ))}
                 </div>

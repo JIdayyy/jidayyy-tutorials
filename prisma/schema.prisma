@@ -16,9 +16,11 @@ model User {
   email   String    @unique
   name String?
   posts    Post[]
-  image    String?
+  image    String
   accounts Account[]
   sessions Session[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Post {
@@ -26,6 +28,7 @@ model Post {
   title      String   @unique
   content    String
   description String
+  image      String
   published  Boolean  @default(false)
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
@@ -33,6 +36,8 @@ model Post {
   authorId   String
   tags       Tag[]
   technologies Technology[]
+    createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Technology {
@@ -40,18 +45,24 @@ model Technology {
   name  String
   icon String
   posts Post[]
+    createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Category {
   id    String @id @default(uuid())
   name  String
   posts Post[]
+    createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Tag {
   id    String @id @default(uuid())
   name  String
   posts Post[]
+    createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Necessary for Next auth
@@ -87,4 +98,11 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+
+enum Role {
+  USER 
+  ADMIN 
+  MODERATOR
 }
