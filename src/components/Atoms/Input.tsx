@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldValues, RegisterOptions, UseFormRegister } from "react-hook-form";
 
 type Props = {
   register: UseFormRegister<FieldValues>;
   variant: "underline" | "solid";
+  options: RegisterOptions;
   icon?: JSX.Element;
   placeholder: string;
   className?: string;
@@ -16,6 +17,7 @@ export default function Input({
   variant,
   placeholder,
   className = "",
+  options,
   icon,
   type,
   name,
@@ -26,10 +28,11 @@ export default function Input({
     <label className="text-white capitalize w-full" htmlFor={name}>
       <span className="my-1">{name} :</span>
       <input
+        spellCheck
         type={type}
         className={`${variant} ${className}`}
         placeholder={placeholder}
-        {...register(name)}
+        {...register(name, options)}
       />
       {icon && <Icon />}
     </label>

@@ -37,10 +37,19 @@ const getInitialValue = () => {
 
 const WritePost: NextPageWithLayout = () => {
   const [value, setValue] = useState(() => getInitialValue());
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
   const [selected, setSelected] = useState<Option[]>([]);
   const { data: categories } = trpc.category.getAllCategories.useQuery();
   const { data: technologies } = trpc.technology.getAllTechnologies.useQuery();
+  const notify = (v: string) =>
+    toast(`Missing value for ${v}`, {
+      theme: "dark",
+      position: "top-right",
+    });
 
   const router = useRouter();
   const { data: sessionData } = useSession({
@@ -68,22 +77,7 @@ const WritePost: NextPageWithLayout = () => {
       technologies: selected.map((tech) => tech.value),
     };
 
-    const getMissingValues = (post: any) => {
-      const missingValues = Object.keys(post).filter((key) => {
-        return post[key] === undefined;
-      });
-      return missingValues;
-    };
-
-    const missingValues = getMissingValues(newPost);
-
-    missingValues.forEach((v) => {
-      toast(`Missing value for ${v}`);
-    });
-
-    if (missingValues.length === 0) {
-      mutate(newPost);
-    }
+    mutate(newPost);
   };
 
   const handleChange = (text: string | undefined) => {
@@ -124,6 +118,9 @@ const WritePost: NextPageWithLayout = () => {
           name="title"
           placeholder="Enter the title of this tutorial"
           type="text"
+          options={{
+            required: true,
+          }}
           register={register}
         />
         <Input
@@ -132,6 +129,9 @@ const WritePost: NextPageWithLayout = () => {
           name="description"
           placeholder="Enter a short description of this tutorial"
           type="text"
+          options={{
+            required: true,
+          }}
           register={register}
         />
         <Input
@@ -140,6 +140,9 @@ const WritePost: NextPageWithLayout = () => {
           name="image"
           placeholder="Please provide an image url"
           type="text"
+          options={{
+            required: true,
+          }}
           register={register}
         />
       </form>
@@ -148,6 +151,9 @@ const WritePost: NextPageWithLayout = () => {
         <Suspense fallback={<div className="bg-white">Loading</div>}>
           <MarkdownEditor
             onChange={handleChange}
+            spellCheck="true"
+            autoCorrect="true"
+            autoCapitalize="true"
             previewOptions={{
               components: {
                 code: Code,

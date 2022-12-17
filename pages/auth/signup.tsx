@@ -46,8 +46,11 @@ const SignUp: NextPageWithLayout<
   return (
     <div className="w-screen h-screen flexColContainerCenter">
       <form className="flex flex-col  items-center justify-center border-light min-w-[440px]  border-blue-50 bg-blue-400 p-5 space-y-4">
-        <h1>Sign Un</h1>
+        <h1>Sign Up</h1>
         <Input
+          options={{
+            required: true,
+          }}
           variant="solid"
           placeholder="Email"
           register={register}
@@ -56,6 +59,9 @@ const SignUp: NextPageWithLayout<
           className="w-full "
         />
         <Input
+          options={{
+            required: true,
+          }}
           variant="solid"
           placeholder="Password"
           register={register}

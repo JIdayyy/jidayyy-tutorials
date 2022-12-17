@@ -5,7 +5,7 @@ import terminalLottie from "../../Lotties/terminal.json";
 const TerminalLottie = () => {
   return (
     <Lottie
-      className="invisible md:visible min-w-[400px]"
+      className="invisible md:visible md:min-w-[400px]"
       style={{ width: "40%" }}
       animationData={terminalLottie}
       loop

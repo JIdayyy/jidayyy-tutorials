@@ -6,6 +6,8 @@ import { ToastContainer } from "react-toastify";
 import { ReactElement, ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
 import { trpc } from "../src/utils/trpc";
+import "react-toastify/dist/ReactToastify.css";
+
 import "../styles/globals.css";
 
 export type NextPageWithLayout<
