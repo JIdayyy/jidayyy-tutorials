@@ -65,6 +65,7 @@ const WritePost: NextPageWithLayout = () => {
       categoryId: data.categoryId,
       description: data.description,
       published: true,
+      image: data.image,
       technologies: selected.map((tech) => tech.value),
     };
 
