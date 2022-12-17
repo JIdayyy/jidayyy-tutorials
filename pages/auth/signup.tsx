@@ -71,8 +71,7 @@ const SignUp: NextPageWithLayout<
             name="password"
             className="w-full "
           />
-          <Button text="Sign In" variant="action" className="w-full" />
-
+          <Button text="Sign Un" variant="action" className="w-full" />
           {providers &&
             Object.values(providers).map((provider) => (
               <button
@@ -90,7 +89,7 @@ const SignUp: NextPageWithLayout<
                       .icon
                   }
                 </span>
-                <p className="font-bold">Sign in with {provider.name}</p>
+                <p className="font-bold">Sign Un with {provider.name}</p>
                 <span />
               </button>
             ))}

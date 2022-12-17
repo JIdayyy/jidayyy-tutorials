@@ -27,7 +27,7 @@ export default function Navbar() {
       </Link>
       <div className="space-x-8 items-center justify-center align-middle flex">
         {navLinks.map((link) => (
-          <NavLink link={link.path} name={link.name} />
+          <NavLink key={link.id} link={link.path} name={link.name} />
         ))}
         {status === "authenticated" && (
           <NavLink link="/write-post" name="New Tuto" />
