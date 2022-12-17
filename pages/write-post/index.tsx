@@ -5,7 +5,6 @@ import { Suspense, useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { Technology } from "@prisma/client";
-import { toast } from "react-toastify";
 import { FieldValues, useForm } from "react-hook-form";
 import Input from "../../src/components/Atoms/Input";
 import Layout from "../../src/components/Layout/Layout";
