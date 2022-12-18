@@ -3,8 +3,6 @@ import superjson from "superjson";
 import { useMemo, useState } from "react";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetStaticProps } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { createContext } from "../src/server/trpc/context";
 import Header from "../src/components/Header";
 import Layout from "../src/components/Layout/Layout";
