@@ -61,6 +61,7 @@ const Home: NextPageWithLayout = () => {
             <TutoCard post={post} />
           ))}
         </div>
+
         <PaginationControls
           onPageChange={(page) => setCurrentPage(page)}
           currentPage={currentPage}

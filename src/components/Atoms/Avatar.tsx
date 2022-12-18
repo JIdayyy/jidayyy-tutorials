@@ -32,6 +32,7 @@ export default function Avatar() {
             className="rounded-full w-5 h-5 cursor-pointer  border-blue-200 transition-all hover:border-2  ease-in-out duration-fast"
             src={data?.user?.image || ""}
             width={100}
+            priority
             height={100}
             alt="avatar"
           />
