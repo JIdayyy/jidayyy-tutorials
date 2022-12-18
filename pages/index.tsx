@@ -13,11 +13,13 @@ import { NextPageWithLayout } from "./_app";
 import { appRouter } from "../src/server/trpc/router/_app";
 import Spinner from "../src/components/MultiSelect/components/Spinner";
 import PaginationControls from "../src/components/PaginationControls";
+import SearchBar from "../src/components/SearchBar";
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 24;
 
 const Home: NextPageWithLayout = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
   const { data, isLoading } = trpc.post.getAllPosts.useQuery(
     { technologies: true },
     {
@@ -31,15 +33,23 @@ const Home: NextPageWithLayout = () => {
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PAGE_SIZE;
     const lastPageIndex = firstPageIndex + PAGE_SIZE;
-    return data?.posts.slice(firstPageIndex, lastPageIndex) || [];
-  }, [currentPage]);
+    return (
+      data?.posts
+        .filter((item) =>
+          item.title.toLowerCase().includes(search.toLowerCase())
+        )
+        .slice(firstPageIndex, lastPageIndex) || []
+    );
+  }, [currentPage, search]);
 
   return (
     <div className="w-full mb-20 flex justify-center items-center align-middle flex-col">
       <Header />
 
       <div className="max-w-7xl w-full flex flex-col  justify-center">
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-between">
+          <SearchBar search={search} setSearch={setSearch} />
+
           <select className="ml-2 max-w-[300px]" name="" id="">
             {categories?.map((category) => (
               <option>{category.name}</option>
