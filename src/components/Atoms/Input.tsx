@@ -10,6 +10,7 @@ type Props = {
   className?: string;
   name: string;
   type: "text" | "password";
+  disabled?: boolean;
 };
 
 export default function Input({
@@ -20,6 +21,7 @@ export default function Input({
   options,
   icon,
   type,
+  disabled,
   name,
 }: Props) {
   const Icon = icon ? () => icon : () => <></>;
@@ -28,6 +30,7 @@ export default function Input({
     <label className="text-white capitalize w-full" htmlFor={name}>
       <span className="my-1">{name} :</span>
       <input
+        disabled={!!disabled}
         spellCheck
         type={type}
         className={`${variant} ${className}`}

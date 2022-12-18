@@ -61,6 +61,7 @@ const SignIn: NextPageWithLayout<
               required: true,
             }}
             variant="solid"
+            disabled
             placeholder="Email"
             register={register}
             type="text"
@@ -73,6 +74,7 @@ const SignIn: NextPageWithLayout<
             }}
             variant="solid"
             placeholder="Password"
+            disabled
             register={register}
             type="password"
             name="password"
