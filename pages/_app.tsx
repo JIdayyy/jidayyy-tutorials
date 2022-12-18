@@ -6,9 +6,11 @@ import { ToastContainer } from "react-toastify";
 import { ReactElement, ReactNode, useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
+import { DefaultSeo } from "next-seo";
 import "nprogress/nprogress.css";
 import Router from "next/router";
 import NProgress from "nprogress";
+import SEO from "../SEO/defaultConfig";
 import { trpc } from "../src/utils/trpc";
 import "../styles/globals.css";
 
@@ -48,6 +50,7 @@ const App = (({
   return (
     <>
       <SessionProvider session={session}>
+        <DefaultSeo {...SEO} />
         {getLayout(<Component {...pageProps} />)}
       </SessionProvider>
       <ReactQueryDevtools initialIsOpen={false} />

@@ -1,10 +1,20 @@
-import { Post, Technology } from "@prisma/client";
+import { Prisma, Technology } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
-  post: Post & { technologies: Technology[] };
+  post: {
+    title: string;
+    image: string;
+    _count: Prisma.PostCountOutputType;
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    technologies: Technology[];
+    description: string;
+    published: boolean;
+  };
 };
 
 export default function TutoCard({ post }: Props) {
@@ -18,7 +28,7 @@ export default function TutoCard({ post }: Props) {
               src={technology.icon}
               width={50}
               height={50}
-              className="w-10 rounded-md object-contain"
+              className="w-10 rounded-sm object-contain"
             />
           ))}
         </div>

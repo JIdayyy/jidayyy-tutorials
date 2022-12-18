@@ -10,6 +10,7 @@ export const postRouter = router({
     .input(
       z.object({
         technologies: z.boolean().optional(),
+        author: z.boolean().optional(),
         skip: z.number().optional(),
         take: z.number().optional(),
         cursor: z.number().nullish(), // <-- "cursor" needs to exist, but can be any type
@@ -30,6 +31,7 @@ export const postRouter = router({
             updatedAt: true,
             _count: true,
             technologies: !!input?.technologies,
+            author: !!input?.author,
           },
         }),
         ctx.prisma.post.count(),
@@ -39,11 +41,21 @@ export const postRouter = router({
     }),
 
   getPost: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(
+      z.object({
+        id: z.string(),
+        technologies: z.boolean().optional(),
+        author: z.boolean().optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const post = await ctx.prisma.post.findUniqueOrThrow({
         where: {
           id: input.id,
+        },
+        include: {
+          technologies: !!input?.technologies,
+          author: !!input?.author,
         },
       });
 

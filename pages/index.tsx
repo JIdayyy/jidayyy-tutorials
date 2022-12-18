@@ -14,6 +14,7 @@ import { appRouter } from "../src/server/trpc/router/_app";
 import Spinner from "../src/components/MultiSelect/components/Spinner";
 import PaginationControls from "../src/components/PaginationControls";
 import SearchBar from "../src/components/SearchBar";
+import TutoCard from "../src/components/Cards/TutoCard";
 
 const PAGE_SIZE = 24;
 
@@ -47,7 +48,7 @@ const Home: NextPageWithLayout = () => {
       <Header />
 
       <div className="max-w-7xl w-full flex flex-col  justify-center">
-        <div className="w-full flex justify-between">
+        <div className="w-full flex justify-between px-2">
           <SearchBar search={search} setSearch={setSearch} />
 
           <select className="ml-2 max-w-[300px]" name="" id="">
@@ -57,29 +58,9 @@ const Home: NextPageWithLayout = () => {
           </select>
         </div>
 
-        <div className="w-full px-2 mt-10 grid grid-col-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="w-full px-2 mt-10 grid min-h-[300px] grid-col-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {currentTableData.map((post) => (
-            <Link href={post.id}>
-              <div className="border-blue-600 bg-blue-400 bg-opacity-40 flex flex-col rounded-sm justify-between  min-h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-2">
-                <div className="w-full flex flex-wrap space-x-2">
-                  {post.technologies.map((technology) => (
-                    <Image
-                      alt="tech logo"
-                      src={technology.icon}
-                      width={50}
-                      height={50}
-                      className="w-10 rounded-md object-contain"
-                    />
-                  ))}
-                </div>
-                <p className="text-white line-clamp-2 transition-all ease-in-out duration-normal group-hover:text-blue-50 font-bold">
-                  {post.title}
-                </p>
-                <p className="line-clamp-3 group-hover:text-blue-100 ease-in-out duration-normal">
-                  {post.description}
-                </p>
-              </div>
-            </Link>
+            <TutoCard post={post} />
           ))}
         </div>
         <PaginationControls
