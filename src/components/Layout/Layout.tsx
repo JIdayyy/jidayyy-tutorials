@@ -1,3 +1,4 @@
+import Footer from "../Footer";
 import Navbar from "../Navbar";
 import WaveSmall from "../svgs/wavesmall";
 
@@ -12,6 +13,7 @@ export default function Layout({ children }: LayoutProps) {
       <div className="z-[1] flex flex-col min-h-screen justify-start items-center w-full relative">
         {children}
       </div>
+      <Footer />
       <WaveSmall className="rotate-180 absolute bottom-0 pointer-events-none z-0 left-0  opacity-25 w-screen" />
     </div>
   );

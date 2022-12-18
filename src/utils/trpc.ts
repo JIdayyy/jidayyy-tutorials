@@ -6,7 +6,7 @@ import { createTRPCNext } from "@trpc/next";
 import superjson from "superjson";
 import type { AppRouter } from "../server/trpc/router/_app";
 
-function getBaseUrl() {
+export function getBaseUrl() {
   if (typeof window !== "undefined") {
     return "";
   }

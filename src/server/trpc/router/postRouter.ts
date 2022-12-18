@@ -1,25 +1,43 @@
+/* eslint-disable no-console */
 /* eslint-disable import/prefer-default-export */
 import axios from "axios";
 import { z } from "zod";
-import { router, publicProcedure } from "../trpc";
+import { getBaseUrl } from "../../../utils/trpc";
+import { router, publicProcedure, protectedProcedure } from "../trpc";
 
 export const postRouter = router({
   getAllPosts: publicProcedure
     .input(
-      z
-        .object({
-          technologies: z.boolean(),
-        })
-        .optional()
+      z.object({
+        technologies: z.boolean().optional(),
+        skip: z.number().optional(),
+        take: z.number().optional(),
+        cursor: z.number().nullish(), // <-- "cursor" needs to exist, but can be any type
+      })
     )
     .query(async ({ ctx, input }) => {
-      const posts = await ctx.prisma.post.findMany({
-        include: {
-          technologies: !!input?.technologies,
-        },
-      });
-      return posts;
+      const [posts, postsCount] = await ctx.prisma.$transaction([
+        ctx.prisma.post.findMany({
+          skip: input?.skip,
+          take: input?.take,
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            image: true,
+            published: true,
+            createdAt: true,
+            updatedAt: true,
+            _count: true,
+            technologies: !!input?.technologies,
+          },
+        }),
+        ctx.prisma.post.count(),
+      ]);
+
+      return { posts, postsCount, take: input?.take, skip: input?.skip };
     }),
+
   getPost: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -31,7 +49,7 @@ export const postRouter = router({
 
       return post;
     }),
-  createPost: publicProcedure
+  createPost: protectedProcedure
     .input(
       z.object({
         content: z.string(),
@@ -45,7 +63,7 @@ export const postRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const newPost = await ctx.prisma.post.create({
+      const post = await ctx.prisma.post.create({
         data: {
           content: input.content,
           title: input.title,
@@ -68,11 +86,13 @@ export const postRouter = router({
         },
       });
 
-      axios.post("/api/revalidate", {
-        secret: process.env.MY_SECRET_TOKEN,
-        path: `/${newPost.id}`,
-      });
+      axios
+        .post(`${getBaseUrl()}/api/revalidate`, {
+          secret: process.env.MY_SECRET_TOKEN,
+          path: `/${post.id}`,
+        })
+        .then((res) => console.log("REVALIDATE", res.data));
 
-      return newPost;
+      return post;
     }),
 });

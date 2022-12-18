@@ -66,9 +66,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     transformer: SuperJSON,
   });
 
-  const posts = await ssg.post.getAllPosts.fetch();
+  const posts = await ssg.post.getAllPosts.fetch({});
 
-  const paths = posts.map((post) => ({
+  const paths = posts.posts.map((post) => ({
     params: { slug: post.id },
   }));
 
