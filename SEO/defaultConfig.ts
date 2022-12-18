@@ -1,4 +1,5 @@
 export default {
+  title: "Jidayyy Tutorials",
   openGraph: {
     type: "website",
     locale: "en_IE",
