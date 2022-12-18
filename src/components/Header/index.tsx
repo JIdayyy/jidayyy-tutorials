@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import TerminalLottie from "../Lotties/Terminal";
 
 const DynamicLottie = dynamic(() => import("../Lotties/Terminal"), {
   ssr: true,
