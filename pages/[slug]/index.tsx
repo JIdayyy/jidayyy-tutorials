@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import SuperJSON from "superjson";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
+import { NextSeo } from "next-seo";
 import "@uiw/react-md-editor/markdown-editor.css";
 import dynamic from "next/dynamic";
 import Layout from "../../src/components/Layout/Layout";
@@ -38,30 +39,45 @@ const PostDetails: NextPageWithLayout = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-7xl min-h-[500px] w-full space-y-5 py-20">
-      <div className="w-screen pointer-events-none absolute left-0 top-0">
-        <Image
-          src={data.image as string}
-          width={1000}
-          height={200}
-          alt="post cover"
-          className=" object-contain top-0 opacity-[0.02] bg-blend-darken selection:mix-blend-darken w-full z-0"
-        />
-        <WaveSmall className="absolute pointer-events-none h-[1200px] top-0  left-0 z-0 opacity-25 w-screen" />
-      </div>
-      <div className="text-gray-500 px-2">
-        <p>Author: {data.author.name}</p>{" "}
-        <p>Date: {new Date(data.createdAt).toLocaleDateString()}</p>
-      </div>
-      <MarkdownEditorPreview
-        className="w-full px-2  min-h-[500px] z-50  border-0 "
-        source={data.content}
-        components={{
-          code: Code,
+    <>
+      <NextSeo
+        title={`Jidayyy tutorials: ${data.title}`}
+        openGraph={{
+          images: [
+            {
+              url: data.image as string,
+              width: 800,
+              height: 600,
+              alt: "Og Image Alt",
+            },
+          ],
         }}
       />
-      <Comments />
-    </div>
+      <div className="max-w-7xl min-h-[500px] w-full space-y-5 py-20">
+        <div className="w-screen pointer-events-none absolute left-0 top-0">
+          <Image
+            src={data.image as string}
+            width={1000}
+            height={200}
+            alt="post cover"
+            className=" object-contain top-0 opacity-[0.02] bg-blend-darken selection:mix-blend-darken w-full z-0"
+          />
+          <WaveSmall className="absolute pointer-events-none h-[1200px] top-0  left-0 z-0 opacity-25 w-screen" />
+        </div>
+        <div className="text-gray-500 px-2">
+          <p>Author: {data.author.name}</p>{" "}
+          <p>Date: {new Date(data.createdAt).toLocaleDateString()}</p>
+        </div>
+        <MarkdownEditorPreview
+          className="w-full px-2  min-h-[500px] z-50  border-0 "
+          source={data.content}
+          components={{
+            code: Code,
+          }}
+        />
+        <Comments />
+      </div>
+    </>
   );
 };
 
