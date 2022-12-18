@@ -26,11 +26,6 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
-
-      token: "https://discord.com/api/oauth2/token",
-      userinfo: "https://discord.com/api/users/@me",
-      authorization:
-        "https://discord.com/api/oauth2/authorize?client_id=1052856171402375228&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fcallback%2Fdiscord&response_type=code&scope=identify",
     }),
     GoogleProvider({
       clientId: env.GOOGLE_SECRET,
