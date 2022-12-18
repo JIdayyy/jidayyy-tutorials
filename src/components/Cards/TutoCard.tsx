@@ -24,6 +24,7 @@ export default function TutoCard({ post }: Props) {
         <div className="w-full flex flex-wrap space-x-2">
           {post.technologies.map((technology) => (
             <Image
+              key={technology.id}
               alt="tech logo"
               src={technology.icon}
               width={50}
