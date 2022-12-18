@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { DefaultSeo } from "next-seo";
 import "nprogress/nprogress.css";
 import Router from "next/router";
+import { Analytics } from "@vercel/analytics/react";
 import NProgress from "nprogress";
 import SEO from "../SEO/defaultConfig";
 import { trpc } from "../src/utils/trpc";
@@ -54,6 +55,7 @@ const App = (({
         {getLayout(<Component {...pageProps} />)}
       </SessionProvider>
       <ReactQueryDevtools initialIsOpen={false} />
+      <Analytics />
       <ToastContainer />
     </>
   );
