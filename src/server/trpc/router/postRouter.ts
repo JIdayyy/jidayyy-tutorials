@@ -25,6 +25,7 @@ export const postRouter = router({
             id: true,
             title: true,
             description: true,
+            categoryId: true,
             image: true,
             published: true,
             createdAt: true,

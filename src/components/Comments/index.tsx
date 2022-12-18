@@ -13,7 +13,7 @@ export default function Comments() {
 
   return (
     <div className="space-y-5 py-10 px-2">
-      <p className="text-xl">Comments</p>
+      <p className="text-xl">{data?.length || 0} comments</p>
       <TextArea />
       <div className="w-full space-y-10 flex flex-col">
         {data?.map((comment) => (

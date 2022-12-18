@@ -19,6 +19,7 @@ const PAGE_SIZE = 24;
 const Home: NextPageWithLayout = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const { data, isLoading } = trpc.post.getAllPosts.useQuery(
     { technologies: true },
     {
@@ -34,12 +35,16 @@ const Home: NextPageWithLayout = () => {
     const lastPageIndex = firstPageIndex + PAGE_SIZE;
     return (
       data?.posts
+        .filter((item) => {
+          if (selectedCategory === "") return true;
+          return item.categoryId === selectedCategory;
+        })
         .filter((item) =>
           item.title.toLowerCase().includes(search.toLowerCase())
         )
         .slice(firstPageIndex, lastPageIndex) || []
     );
-  }, [currentPage, search]);
+  }, [currentPage, search, selectedCategory]);
 
   return (
     <div className="w-full mb-20 flex justify-center items-center align-middle flex-col">
@@ -49,9 +54,17 @@ const Home: NextPageWithLayout = () => {
         <div className="w-full flex justify-between px-2">
           <SearchBar search={search} setSearch={setSearch} />
 
-          <select className="ml-2 max-w-[300px]" name="" id="">
+          <select
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="ml-2 max-w-[300px]"
+            name=""
+            id=""
+          >
+            <option value="">All categories</option>
             {categories?.map((category) => (
-              <option key={category.id}>{category.name}</option>
+              <option value={category.id} key={category.id}>
+                {category.name}
+              </option>
             ))}
           </select>
         </div>
