@@ -10,6 +10,10 @@ p {
   @apply text-base text-white;
 }
 
+label {
+  @apply text-white;
+}
+
 body {
   background-color: #0e1117;
 }
@@ -19,6 +23,10 @@ hr {
 }
 
 input.solid {
+  @apply text-white w-full outline-none focus:ring-0 ring-0  bg-opacity-10 bg-blue-800 h-10  rounded-sm px-4 py-1 border-b border-blue-200;
+}
+
+textarea {
   @apply text-white w-full outline-none focus:ring-0 ring-0  bg-opacity-10 bg-blue-800 h-10  rounded-sm px-4 py-1 border-b border-blue-200;
 }
 

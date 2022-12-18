@@ -11,57 +11,70 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
+  id            String    @id @default(uuid())
   emailVerified DateTime? @unique
-  email   String    @unique
-  name String?
-  posts    Post[]
-  image    String
-  accounts Account[]
-  sessions Session[]
+  email         String    @unique
+  name          String?
+  posts         Post[]
+  image         String
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  Comment       Comment[]
+}
+
+model Post {
+  id           String       @id @default(uuid())
+  title        String       @unique
+  content      String
+  description  String
+  image        String
+  published    Boolean      @default(false)
+  category     Category     @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  author       User         @relation(fields: [authorId], references: [id])
+  authorId     String
+  tags         Tag[]
+  technologies Technology[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  Comment      Comment[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Post {
-  id         String   @id @default(uuid())
-  title      String   @unique
-  content    String
-  description String
-  image      String
-  published  Boolean  @default(false)
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String
-  author     User     @relation(fields: [authorId], references: [id])
-  authorId   String
-  tags       Tag[]
-  technologies Technology[]
-    createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model Technology {
-  id    String @id @default(uuid())
-  name  String
-  icon String
-  posts Post[]
-    createdAt DateTime @default(now())
+  id        String   @id @default(uuid())
+  name      String
+  icon      String
+  posts     Post[]
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id    String @id @default(uuid())
-  name  String
-  posts Post[]
-    createdAt DateTime @default(now())
+  id        String   @id @default(uuid())
+  name      String
+  posts     Post[]
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Tag {
-  id    String @id @default(uuid())
-  name  String
-  posts Post[]
-    createdAt DateTime @default(now())
+  id        String   @id @default(uuid())
+  name      String
+  posts     Post[]
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
@@ -100,9 +113,8 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-
 enum Role {
-  USER 
-  ADMIN 
+  USER
+  ADMIN
   MODERATOR
 }

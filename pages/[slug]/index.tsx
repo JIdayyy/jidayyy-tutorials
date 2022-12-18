@@ -15,6 +15,7 @@ import { NextPageWithLayout } from "../_app";
 import "@uiw/react-markdown-preview/markdown.css";
 import { Code } from "../../src/components/Editor/utils";
 import WaveSmall from "../../src/components/svgs/wavesmall";
+import Comments from "../../src/components/Comments";
 
 const MarkdownEditorPreview = dynamic(
   () =>
@@ -37,7 +38,7 @@ const PostDetails: NextPageWithLayout = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-7xl min-h-[500px] w-full py-20">
+    <div className="max-w-7xl min-h-[500px] w-full space-y-5 py-20">
       <div className="w-screen pointer-events-none absolute left-0 top-0">
         <Image
           src={data.image as string}
@@ -59,6 +60,7 @@ const PostDetails: NextPageWithLayout = () => {
           code: Code,
         }}
       />
+      <Comments />
     </div>
   );
 };
