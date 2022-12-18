@@ -37,7 +37,7 @@ const PostDetails: NextPageWithLayout = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-7xl w-full py-20">
+    <div className="max-w-7xl min-h-[500px] w-full py-20">
       <div className="w-screen pointer-events-none absolute left-0 top-0">
         <Image
           src={data.image as string}
