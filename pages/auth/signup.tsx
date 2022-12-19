@@ -9,6 +9,7 @@ import { AiFillGoogleSquare } from "react-icons/ai";
 import { BsDiscord } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 import Button from "../../src/components/Atoms/Button";
 import Input from "../../src/components/Atoms/Input";
@@ -46,9 +47,15 @@ const SignUp: NextPageWithLayout<
 
   return (
     <div className="w-screen h-[80vh] flexColContainerCenter">
+      <motion.h1
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        Sign Un
+      </motion.h1>
       <AnimationOpacity>
         <form className="flex flex-col  items-center justify-center border-light min-w-[440px]  border-blue-50 bg-blue-400 p-5 space-y-4">
-          <h1>Sign Up</h1>
           <Input
             options={{
               required: true,
@@ -57,6 +64,7 @@ const SignUp: NextPageWithLayout<
             placeholder="Email"
             register={register}
             type="text"
+            disabled
             name="email"
             className="w-full "
           />
@@ -67,6 +75,7 @@ const SignUp: NextPageWithLayout<
             variant="solid"
             placeholder="Password"
             register={register}
+            disabled
             type="password"
             name="password"
             className="w-full "
