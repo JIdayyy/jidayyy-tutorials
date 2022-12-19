@@ -170,7 +170,7 @@ const Select: React.FC<SelectProps> = ({
       borderFocus = THEME_DATA.borderFocus[primaryColor];
     }
     const baseClass =
-      "flex text-sm text-gray-500 border-b border-blue-200 rounded shadow-sm transition-all duration-300 focus:outline-none";
+      "flex text-sm  text-gray-500 border-b border-blue-200 rounded shadow-sm transition-all duration-300 focus:outline-none";
     const defaultClass = `${baseClass} ${
       isDisabled
         ? "bg-gray-200"
@@ -200,7 +200,7 @@ const Select: React.FC<SelectProps> = ({
       value={value}
       handleValueChange={handleValueChange}
     >
-      <div className="relative w-full " ref={ref}>
+      <div className="relative w-full z-50 " ref={ref}>
         <div
           tabIndex={0}
           aria-expanded={open}

@@ -41,7 +41,6 @@ const WritePost: NextPageWithLayout = () => {
   const [selected, setSelected] = useState<Option[]>([]);
   const { data: categories } = trpc.category.getAllCategories.useQuery();
   const { data: technologies } = trpc.technology.getAllTechnologies.useQuery();
-
   const router = useRouter();
   const { data: sessionData } = useSession({
     onUnauthenticated: () => {

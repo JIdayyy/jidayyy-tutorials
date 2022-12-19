@@ -53,7 +53,10 @@ const PostDetails: NextPageWithLayout = () => {
           ],
         }}
       />
-      <div className="max-w-7xl min-h-[500px] w-full space-y-5 py-20">
+      <div
+        data-color-mode="dark"
+        className="max-w-7xl min-h-[500px] w-full space-y-5 py-20"
+      >
         <div className="w-screen pointer-events-none absolute left-0 top-0">
           <Image
             src={data.image as string}
