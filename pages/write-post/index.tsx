@@ -139,7 +139,10 @@ const WritePost: NextPageWithLayout = () => {
         />
       </form>
 
-      <div className="w-full h-full justify-between flex">
+      <div
+        data-color-mode="dark"
+        className="w-full h-full justify-between flex"
+      >
         <Suspense fallback={<div className="bg-white">Loading</div>}>
           <MarkdownEditor
             onChange={handleChange}
