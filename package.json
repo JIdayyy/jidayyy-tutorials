@@ -44,6 +44,7 @@
     "react-toastify": "^9.1.1",
     "rehype-sanitize": "^5.0.1",
     "remark-mermaid": "^0.2.0",
+    "slugify": "^1.6.5",
     "superjson": "^1.12.0",
     "tailwind-scrollbar": "^2.0.1",
     "zod": "^3.20.2"

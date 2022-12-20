@@ -13,7 +13,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { status } = useSession();
+  const { data } = useSession();
 
   return (
     <div className="max-w-7xl px-2 z-10 text-white border-b-light border-gray-700 py-5 flex w-full items-center align-middle justify-between">
@@ -29,8 +29,8 @@ export default function Navbar() {
         {navLinks.map((link) => (
           <NavLink key={link.id} link={link.path} name={link.name} />
         ))}
-        {status === "authenticated" && (
-          <NavLink link="/write-post" name="New Tuto" />
+        {data?.user?.role === "ADMIN" && (
+          <NavLink link="/tutorial/new" name="New Tuto" />
         )}
         <Avatar />
       </div>

@@ -1,25 +1,18 @@
-import { Prisma, Technology } from "@prisma/client";
+import { Post, Prisma, Technology } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
-  post: {
-    title: string;
-    image: string;
-    _count: Prisma.PostCountOutputType;
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
+  post: Post & {
     technologies: Technology[];
-    description: string;
-    published: boolean;
+    _count: Prisma.PostCountAggregateOutputType;
   };
 };
 
 export default function TutoCard({ post }: Props) {
   return (
-    <Link href={post.id}>
+    <Link href={`/tutorial/${post.slug}`}>
       <div className="border-blue-600 bg-blue-400 bg-opacity-40 flex flex-col rounded-sm justify-between  min-h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-2">
         <div className="w-full flex flex-wrap space-x-2">
           {post.technologies.map((technology) => (

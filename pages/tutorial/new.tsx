@@ -46,14 +46,14 @@ const WritePost: NextPageWithLayout = () => {
     onUnauthenticated: () => {
       router.push("/api/auth/signin");
     },
+
     required: true,
   });
-
   const { mutate, isLoading } = trpc.post.createPost.useMutation({
     onSuccess: (data) => {
       trpc.useContext().post.getAllPosts.invalidate();
       localStorage.setItem("draft", "");
-      router.push(`/${data.id}`);
+      router.push(`/tutorial/${data.slug}`);
     },
   });
 
@@ -91,6 +91,15 @@ const WritePost: NextPageWithLayout = () => {
   );
 
   const options = convertTechAsOption(technologies || []);
+
+  if (sessionData?.user?.role !== "ADMIN") {
+    return (
+      <div className="w-full min-h-screen flex flex-col space-y-5  max-w-7xl mb-20">
+        <h1>Write a new post here</h1>
+        <p>You are not authorized to create a post</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen flex flex-col space-y-5  max-w-7xl mb-20">

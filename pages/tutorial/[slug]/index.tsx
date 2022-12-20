@@ -7,16 +7,18 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
 import "@uiw/react-md-editor/markdown-editor.css";
+import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import Layout from "../../src/components/Layout/Layout";
-import { createContext } from "../../src/server/trpc/context";
-import { appRouter } from "../../src/server/trpc/router/_app";
-import { trpc } from "../../src/utils/trpc";
-import { NextPageWithLayout } from "../_app";
+import Layout from "../../../src/components/Layout/Layout";
+import { createContext } from "../../../src/server/trpc/context";
+import { appRouter } from "../../../src/server/trpc/router/_app";
+import { trpc } from "../../../src/utils/trpc";
+import { NextPageWithLayout } from "../../_app";
 import "@uiw/react-markdown-preview/markdown.css";
-import { Code } from "../../src/components/Editor/utils";
-import WaveSmall from "../../src/components/svgs/wavesmall";
-import Comments from "../../src/components/Comments";
+import { Code } from "../../../src/components/Editor/utils";
+import WaveSmall from "../../../src/components/svgs/wavesmall";
+import Comments from "../../../src/components/Comments";
+import EditButton from "../../../src/components/Atoms/EditButton";
 
 const MarkdownEditorPreview = dynamic(
   () =>
@@ -28,8 +30,9 @@ const MarkdownEditorPreview = dynamic(
 
 const PostDetails: NextPageWithLayout = () => {
   const { query } = useRouter();
+
   const { data, isLoading, isError } = trpc.post.getPost.useQuery({
-    id: query.slug as string,
+    slug: query.slug as string,
     author: true,
     technologies: true,
   });
@@ -67,9 +70,23 @@ const PostDetails: NextPageWithLayout = () => {
           />
           <WaveSmall className="absolute pointer-events-none h-[1200px] top-0  left-0 z-0 opacity-25 w-screen" />
         </div>
-        <div className="text-gray-500 px-2">
-          <p>Author: {data.author.name}</p>{" "}
-          <p>Date: {new Date(data.createdAt).toLocaleDateString()}</p>
+        <div className="flex w-full justify-between">
+          <div className="text-gray-500 flex px-2">
+            <Image
+              className="rounded-full"
+              src={data.author.image}
+              width={50}
+              height={50}
+              alt="author avatar"
+            />
+            <div className="ml-2">
+              <p>Author: {data.author.name}</p>{" "}
+              <p className="text-gray-500">
+                Date: {new Date(data.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+          <EditButton />
         </div>
         <MarkdownEditorPreview
           className="w-full px-2  min-h-[500px] z-50  border-0 "
@@ -96,7 +113,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await ssg.post.getAllPosts.fetch({});
 
   const paths = posts.posts.map((post) => ({
-    params: { slug: post.id },
+    params: { slug: post.slug },
   }));
 
   return {
@@ -117,7 +134,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   });
 
   await ssg.post.getPost.prefetch({
-    id: slug as string,
+    slug: slug as string,
     author: true,
     technologies: true,
   });

@@ -15,6 +15,7 @@ model User {
   emailVerified DateTime? @unique
   email         String    @unique
   name          String?
+  role          Role      @default(USER)
   posts         Post[]
   image         String
   accounts      Account[]
@@ -30,6 +31,7 @@ model Post {
   content      String
   description  String
   image        String
+  slug         String        @unique
   published    Boolean      @default(false)
   category     Category     @relation(fields: [categoryId], references: [id])
   categoryId   String
