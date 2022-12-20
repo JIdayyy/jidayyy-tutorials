@@ -7,7 +7,6 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
 import "@uiw/react-md-editor/markdown-editor.css";
-import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import Layout from "../../../src/components/Layout/Layout";
 import { createContext } from "../../../src/server/trpc/context";
