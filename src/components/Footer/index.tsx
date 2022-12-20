@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="w-full flex flex-col items-center justify-center align-middle">
+    <div className="w-full py-2 flex flex-col items-center justify-center align-middle">
       <div className="space-x-2">
         <p>
           Made by{" "}
