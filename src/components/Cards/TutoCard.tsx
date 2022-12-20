@@ -6,7 +6,7 @@ import React from "react";
 type Props = {
   post: Post & {
     technologies: Technology[];
-    _count: Prisma.PostCountAggregateOutputType;
+    _count: Prisma.PostCountOutputType;
   };
 };
 
