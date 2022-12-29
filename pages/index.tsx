@@ -69,7 +69,7 @@ const Home: NextPageWithLayout = () => {
           </select>
         </div>
 
-        <div className="w-full px-2 mt-10 grid min-h-[950px] grid-col-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="w-full px-2 mt-10 grid-rows-4  grid min-h-[950px] grid-col-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {currentTableData.map((post) => (
             <TutoCard key={post.id} post={post} />
           ))}

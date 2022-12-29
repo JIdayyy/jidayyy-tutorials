@@ -3,6 +3,7 @@ import { Role } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPageWithLayout } from "../_app";
+import AdminLayout from "../../src/components/Admin/Layout/AdminLayout";
 
 const Admin: NextPageWithLayout = () => {
   const router = useRouter();
@@ -22,5 +23,7 @@ const Admin: NextPageWithLayout = () => {
 
   return <div className="w-full">ADMIN PAGE</div>;
 };
+
+Admin.getLayout = (page) => <AdminLayout>{page}</AdminLayout>;
 
 export default Admin;

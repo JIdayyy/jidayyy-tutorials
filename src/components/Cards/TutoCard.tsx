@@ -13,7 +13,7 @@ type Props = {
 export default function TutoCard({ post }: Props) {
   return (
     <Link href={`/tutorial/${post.slug}`}>
-      <div className="border-blue-600 bg-blue-400 bg-opacity-40 flex flex-col rounded-sm justify-between  min-h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-2">
+      <div className="border-blue-600 bg-blue-400 bg-opacity-40 flex flex-col rounded-sm justify-between  h-[220px] hover:border-blue-50 group  ease-in-out duration-normal  p-5 border-2">
         <div className="w-full flex flex-wrap space-x-2">
           {post.technologies.map((technology) => (
             <Image
