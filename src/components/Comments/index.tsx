@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
@@ -5,16 +6,17 @@ import TextArea from "./TextArea";
 
 export default function Comments() {
   const { query } = useRouter();
+  const { status } = useSession();
 
   const { data } = trpc.comment.getAllCommentsByPost.useQuery({
-    postId: query.slug as string,
+    slug: query.slug as string,
     author: true,
   });
 
   return (
     <div className="space-y-5 py-10 px-2">
       <p className="text-xl">{data?.length || 0} comments</p>
-      <TextArea />
+      {status === "authenticated" && <TextArea />}
       <div className="w-full space-y-10 flex flex-col">
         {data?.map((comment) => (
           <div className="flex mt-5 space-y-2 flex-col w-full">

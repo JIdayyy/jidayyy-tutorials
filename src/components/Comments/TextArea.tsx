@@ -13,16 +13,15 @@ export default function TextArea() {
   const { mutate, isLoading } = trpc.comment.createComment.useMutation({
     onSuccess: () => {
       utils.comment.getAllCommentsByPost.invalidate({
-        postId: query.slug as string,
+        slug: query.slug as string,
       });
       resetField("content");
     },
   });
-
   const onSubmit = (data: FieldValues) => {
     mutate({
       content: data.content,
-      postId: query.slug as string,
+      slug: query.slug as string,
     });
   };
 

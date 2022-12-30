@@ -6,14 +6,16 @@ export const commentRouter = router({
   getAllCommentsByPost: publicProcedure
     .input(
       z.object({
-        postId: z.string(),
+        slug: z.string(),
         author: z.boolean().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
       const comments = await ctx.prisma.comment.findMany({
         where: {
-          postId: input.postId,
+          post: {
+            slug: input.slug,
+          },
         },
         include: {
           author: !!input.author,
@@ -28,7 +30,7 @@ export const commentRouter = router({
   createComment: protectedProcedure
     .input(
       z.object({
-        postId: z.string(),
+        slug: z.string(),
         content: z.string(),
       })
     )
@@ -43,7 +45,7 @@ export const commentRouter = router({
           },
           post: {
             connect: {
-              id: input.postId,
+              slug: input.slug,
             },
           },
         },

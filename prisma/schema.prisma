@@ -14,7 +14,7 @@ model User {
   id            String    @id @default(uuid())
   emailVerified DateTime? @unique
   email         String    @unique
-  name          String?
+  name          String?   @unique
   role          Role      @default(USER)
   posts         Post[]
   image         String
