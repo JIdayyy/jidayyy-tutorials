@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { TranslateOpacity } from "../Animations/Transitions/Pages";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
@@ -6,6 +7,10 @@ import WaveSmall from "../svgs/wavesmall";
 interface LayoutProps {
   children: React.ReactNode;
 }
+
+const DynamicCookies = dynamic(() => import("../Cookies"), {
+  ssr: false,
+});
 
 export default function Layout({ children }: LayoutProps) {
   return (
@@ -18,6 +23,7 @@ export default function Layout({ children }: LayoutProps) {
       </TranslateOpacity>
       <Footer />
       <WaveSmall className="rotate-180 absolute bottom-0 pointer-events-none z-0 left-0  opacity-25 w-screen" />
+      <DynamicCookies />
     </div>
   );
 }
