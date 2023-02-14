@@ -57,3 +57,19 @@ button.info {
 test {
   @apply text-white text-opacity-100;
 }
+
+.overlay {
+  --clip: 0%;
+  clip-path: circle(var(--clip));
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 200;
+  background: #000000;
+}

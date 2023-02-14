@@ -69,7 +69,7 @@ const PostDetails: NextPageWithLayout = () => {
           />
           <WaveSmall className="absolute pointer-events-none h-[1200px] top-0  left-0 z-0 opacity-25 w-screen" />
         </div>
-        <div className="flex w-full justify-between">
+        <div className="flex relative z-50 w-full justify-between">
           <div className="text-gray-500 flex px-2">
             <Image
               className="rounded-full"
@@ -88,7 +88,10 @@ const PostDetails: NextPageWithLayout = () => {
           <EditButton />
         </div>
         <MarkdownEditorPreview
-          className="w-full px-2  min-h-[500px] z-50  border-0 "
+          className="w-full px-2 relative min-h-[500px] z-50  border-0 "
+          style={{
+            backgroundColor: "transparent",
+          }}
           source={data.content}
           components={{
             code: Code,
